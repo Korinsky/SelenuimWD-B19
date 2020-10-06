@@ -1,2 +1,2 @@
 # SelenuimWD-B19
-test tasks
+common test tasks

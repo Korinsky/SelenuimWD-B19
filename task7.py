@@ -19,8 +19,8 @@ def test_example(driver):
     menu_dict = {'Appearence': ('Template', 'Logotype'), 'Catalog': ('Catalog', 'Product Groups', 'Option Groups', 'Manufacturers', 'Suppliers', 'Delivery Statuses', 'Sold Out Statuses', 'Quantity Units', 'CSV Import/Export'), 'Countries': [], 'Currencies': [], 'Customers': ('Customers', 'CSV Import/Export', 'Newsletter'), 'Geo Zones': [], 'Languages': ('Languages', 'Storage Encoding'), 'Modules': ('Background Jobs', 'Customer', 'Shipping', 'Payment', 'Order Total', 'Order Success', 'Order Action'), 'Orders': ('Orders', 'Order Statuses'), 'Pages': [], 'Reports': ('Monthly Sales', 'Most Sold Products', 'Most Shopping Customers'), 'Settings': ('Store Info', 'Defaults', 'General', 'Listings', 'Images', 'Checkout', 'Advanced', 'Security'), 'Slides': [], 'Tax': ('Tax Classes', 'Tax Rates'), 'Translations': ('Search Translations', 'Scan Files', 'CSV Import/Export'), 'Users': [], 'vQmods': ['vQmods']}
 
     driver.get("http://localhost/litecard/admin")
-    element = wait.until(EC.presence_of_element_located((By.XPATH, "//input[@name='username']")))
-    element.send_keys("admin")
+    wait.until(EC.presence_of_element_located((By.XPATH, "//input[@name='username']")))
+    driver.find_element_by_name("username").send_keys("admin")
     driver.find_element_by_name("password").send_keys("admin")
     driver.find_element_by_name("login").click()
 

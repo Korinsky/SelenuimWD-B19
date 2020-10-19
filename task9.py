@@ -46,3 +46,31 @@ def test_country_order(driver):
             zones_list.append(zone.find_element_by_css_selector("td:nth-child(3)").text)
 
         assert list(zones_list) == sorted(zones_list), "list of zones not in alphabetical order"
+
+
+def test_zones_order(driver):
+    countries_list = []
+    wait = WebDriverWait(driver, 10)
+
+    driver.get("http://localhost/litecard/admin/?app=geo_zones&doc=geo_zones")
+    wait.until(EC.presence_of_element_located((By.XPATH, "//input[@name='username']")))
+    driver.find_element_by_name("username").send_keys("admin")
+    driver.find_element_by_name("password").send_keys("admin")
+    driver.find_element_by_name("login").click()
+
+    wait.until(EC.presence_of_element_located((By.CLASS_NAME, "dataTable")))
+    countries = driver.find_elements_by_css_selector(".dataTable tr.row > td:nth-child(3) > a")
+
+    for country in countries:
+        countries_list.append(country.get_attribute("href"))
+
+    for link in countries_list:
+        zones_list = []
+        driver.get("%s" % link)
+        wait.until(EC.presence_of_element_located((By.ID, "table-zones")))
+        zones = driver.find_elements_by_css_selector("#table-zones tr:not(.header) td:nth-child(3) option[selected]")
+
+        for zone in zones:
+            zones_list.append(zone.text)
+
+        assert list(zones_list) == sorted(zones_list), "list of zones not in alphabetical order"

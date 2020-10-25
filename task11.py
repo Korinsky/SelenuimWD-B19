@@ -12,7 +12,6 @@ from selenium.webdriver.support.ui import Select
 def driver(request):
     wd = webdriver.Chrome()
     wd.set_page_load_timeout(10)
-    wd.set_script_timeout(1000)
     request.addfinalizer(wd.quit)
     return wd
 
